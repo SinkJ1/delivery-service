@@ -1,0 +1,11 @@
+entity\Category.class
+entity\Shop.class
+service\BaseService.class
+entity\Client.class
+entity\Product.class
+entity\Order.class
+service\impl\BaseServiceImpl.class
+service\impl\CategoryServiceImpl.class
+service\CategoryService.class
+dao\CategoryRepository.class
+dao\Repository.class
