@@ -8,7 +8,7 @@ public class UserRepositoryTest {
 
     private final String clientPath = "src/test/resources/data/client.json";
 
-    Repository<Client, Long> clientRepository = new ClientRepositoryImpl(clientPath, MockData.clients);
+    Repository<Client, Long> clientRepository = new ClientRepositoryImpl(clientPath);
     Client client = new Client(25L, "name", "Brest");
 
     @Test

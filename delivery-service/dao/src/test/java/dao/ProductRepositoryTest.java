@@ -5,6 +5,7 @@ import entity.Product;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -34,13 +35,13 @@ public class ProductRepositoryTest {
         return e -> e.getCategories().equals(categories);
     }
 
-    ProductRepository productRepository = new ProductRepositoryImpl("", MockData.products);
+    ProductRepository productRepository = new ProductRepositoryImpl("");
 
     @Test
     public void getProductByAttributesTest() {
         List<Category> categories = MockData.products.get(0).getCategories();
         Predicate<Product>[] predicates = new Predicate[]{productCategoryEQ(categories)};
-        List<Product> products = productRepository.getProductByAttributes(predicates);
+        List<Product> products = new ArrayList<>();
         List<Product> products2 = List.of(MockData.products.get(0));
 
         Assert.assertEquals(products,products2);

@@ -6,8 +6,8 @@ import java.util.List;
 
 public class OrderRepositoryImpl extends BaseDao<Order, Long> implements OrderRepository{
 
-    public OrderRepositoryImpl(String path, List<Order> entities) {
-        super(path, entities);
+    public OrderRepositoryImpl(String path) {
+        super(path, MockData.orders);
     }
 
     @Override

@@ -4,10 +4,10 @@ import entity.Client;
 
 import java.util.List;
 
-public class ClientRepositoryImpl extends BaseDao<Client, Long> implements Repository<Client, Long> {
+public class ClientRepositoryImpl extends BaseDao<Client, Long> implements ClientRepository {
 
-    public ClientRepositoryImpl(String path, List<Client> clients) {
-        super(path, clients);
+    public ClientRepositoryImpl(String path) {
+        super(path, MockData.clients);
     }
 
     @Override

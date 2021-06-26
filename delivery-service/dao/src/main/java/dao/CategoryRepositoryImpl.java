@@ -8,8 +8,8 @@ public class CategoryRepositoryImpl extends BaseDao<Category, Long> implements C
 
     //final static String path = "dao/src/main/resources/data/category.json";
 
-    public CategoryRepositoryImpl(String path, List<Category> categories){
-        super(path, categories);
+    public CategoryRepositoryImpl(String path){
+        super(path, MockData.categories);
     }
 
 

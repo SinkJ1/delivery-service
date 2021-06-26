@@ -5,8 +5,8 @@ import entity.Shop;
 import java.util.List;
 
 public class ShopRepositoryImpl extends BaseDao<Shop, Long> implements ShopRepository{
-    public ShopRepositoryImpl(String path, List<Shop> entities) {
-        super(path, entities);
+    public ShopRepositoryImpl(String path) {
+        super(path, MockData.shops);
     }
 
     @Override

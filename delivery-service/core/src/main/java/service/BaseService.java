@@ -2,6 +2,7 @@ package service;
 
 import dao.Repository;
 
+import java.util.Comparator;
 import java.util.List;
 
 public interface BaseService<T, Y> {
@@ -16,4 +17,5 @@ public interface BaseService<T, Y> {
 
     void delete(T entity, Repository<T, Y>  repository);
 
+    List<T> sort(List<T> entities, Comparator<T> comparator);
 }

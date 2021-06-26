@@ -1,6 +1,7 @@
 package dao;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 public interface Repository<T, Y> {
 
@@ -13,4 +14,7 @@ public interface Repository<T, Y> {
     void update(T entity);
 
     void delete(T entity);
+
+    List<T> filter(Predicate<T> ...predicates);
+
 }

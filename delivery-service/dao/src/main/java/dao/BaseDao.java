@@ -5,6 +5,9 @@ import data_loader.FileWorker;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 
 public abstract class BaseDao<T, Y> implements Repository<T, Y> {
@@ -77,4 +80,13 @@ public abstract class BaseDao<T, Y> implements Repository<T, Y> {
     public void delete(T entity) {
         entities.remove(entity);
     }
+
+    public List<T> filter(Predicate<T>... predicates) {
+        Stream<T> result = readAll().stream();
+        for (Predicate<T> predicate : predicates) {
+            result = result.filter(predicate);
+        }
+        return result.collect(Collectors.toList());
+    }
+
 }
