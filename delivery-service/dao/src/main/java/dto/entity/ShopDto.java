@@ -7,12 +7,16 @@ public class ShopDto {
 
     private long id;
     private String name;
-    private List<ProductsByShopDto> products;
+    private List<Long> products;
 
-    public ShopDto(long id, String name, List<ProductsByShopDto> products) {
+    public ShopDto(long id, String name, List<Long> products) {
         this.id = id;
         this.name = name;
         this.products = products;
+    }
+
+    public ShopDto(){
+
     }
 
     @Override
@@ -46,11 +50,11 @@ public class ShopDto {
         this.name = name;
     }
 
-    public List<ProductsByShopDto> getProducts() {
+    public List<Long> getProducts() {
         return products;
     }
 
-    public void setProducts(List<ProductsByShopDto> products) {
+    public void setProducts(List<Long> products) {
         this.products = products;
     }
 

@@ -2,41 +2,42 @@ package mapper;
 
 import dao.CategoryRepository;
 import dao.CategoryRepositoryImpl;
+import dao.ProductRepository;
+import dao.ProductRepositoryImpl;
 import dto.entity.ProductDto;
 import entity.Category;
 import entity.Product;
-import org.modelmapper.ExpressionMap;
 
-import java.util.List;
+import java.util.stream.Collectors;
 
 public class ProductMapper extends BaseMapper<Product, ProductDto> {
 
+    ProductRepository productRepository;
     CategoryRepository categoryRepository;
     IdEntityMapper<Category> categoryMapper;
 
-    public ProductMapper(String pathToCategory) {
+    public ProductMapper(String pathToProduct, String pathToCategory) {
+        super(Product.class, ProductDto.class);
+        this.productRepository = new ProductRepositoryImpl(pathToProduct);
         this.categoryRepository = new CategoryRepositoryImpl(pathToCategory);
         this.categoryMapper = new IdEntityMapper<>();
+        setupMapper();
     }
 
-    protected List<Long> getIdes() {
-        return categoryMapper.getId(categoryRepository.readAll(), category -> category.getId());
+    public void setupMapper() {
+        mapper.createTypeMap(Product.class, ProductDto.class)
+                .addMappings(m -> m.skip(ProductDto::setCategories)).setPostConverter(toDtoConverter());
+        mapper.createTypeMap(ProductDto.class, Product.class)
+                .addMappings(m -> m.skip(Product::setCategories)).setPostConverter(toEntityConverter());
     }
 
-    @Override
-    protected Class<Product> getTClass() {
-        return Product.class;
+    public void mapSpecificFieldsEntity(Product product, ProductDto productDto) {
+        productDto.setCategories(categoryMapper.getId(product.getCategories(), (Category category) -> category.getId()));
     }
 
-    @Override
-    protected Class<ProductDto> getYClass() {
-        return ProductDto.class;
-    }
 
-    @Override
-    protected List<ExpressionMap<Product,ProductDto>> getExpressionMap() {
-        return List.of(m -> m.map(categories -> getIdes(), ProductDto::setCategories));
+    public void mapSpecificFieldsDto(ProductDto productDto, Product product) {
+        product.setCategories(productDto.getCategories().stream().map(e -> categoryMapper.toEntity(categoryRepository.readAll(), c -> c.getId() == e)).collect(Collectors.toList()));
     }
-
 
 }

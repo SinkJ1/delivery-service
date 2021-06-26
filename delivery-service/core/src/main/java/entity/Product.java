@@ -12,6 +12,10 @@ public class Product {
     private List<Category> categories;
 
 
+    public Product(){
+
+    }
+
     public Product(long id, String name, String producingCountry, int yearOfIssue, List<Category> categories) {
         this.id = id;
         this.name = name;

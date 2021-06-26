@@ -11,7 +11,7 @@ public class ProductsByShop {
 
     public ProductsByShop(long id, Product products, int count, float cost) {
         this.id = id;
-        this.product = product;
+        this.product = products;
         this.count = count;
         this.cost = cost;
     }

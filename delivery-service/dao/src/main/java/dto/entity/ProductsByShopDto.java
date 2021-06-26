@@ -5,16 +5,21 @@ import java.util.Objects;
 public class ProductsByShopDto {
 
     private long id;
-    private ProductDto product;
+    private Long product;
     private int count;
     private float cost;
 
-    public ProductsByShopDto(long id, ProductDto products, int count, float cost) {
+    public ProductsByShopDto(long id, Long product, int count, float cost) {
         this.id = id;
         this.product = product;
         this.count = count;
         this.cost = cost;
     }
+
+    public ProductsByShopDto(){
+
+    }
+
 
     @Override
     public boolean equals(Object o) {
@@ -40,11 +45,11 @@ public class ProductsByShopDto {
         this.id = id;
     }
 
-    public ProductDto getProduct() {
+    public Long getProduct() {
         return product;
     }
 
-    public void setProduct(ProductDto product) {
+    public void setProduct(Long product) {
         this.product = product;
     }
 

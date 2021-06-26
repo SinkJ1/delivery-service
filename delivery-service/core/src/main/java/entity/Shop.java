@@ -15,6 +15,10 @@ public class Shop {
         this.products = products;
     }
 
+    public Shop(){
+
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

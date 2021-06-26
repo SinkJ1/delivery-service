@@ -17,7 +17,7 @@ public class ProductRepositoryImpl extends BaseDao<Product, Long> implements Pro
 
     @Override
     protected Product getById(Long id, List<Product> entities) {
-        return null;
+        return entities.stream().filter(e -> e.getId() == id).findFirst().get();
     }
 
 }

@@ -1,36 +1,60 @@
 package mapper;
 
-import org.modelmapper.ExpressionMap;
+import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 
-import java.util.List;
+import java.util.Objects;
 
-public abstract class BaseMapper<T, Y> {
+public abstract class BaseMapper<E, D>{
 
     ModelMapper mapper;
 
-    protected BaseMapper() {
+    abstract void mapSpecificFieldsEntity(E source, D destination);
+    abstract void mapSpecificFieldsDto(D source, E destination);
+
+    private Class<E> entityClass;
+    private Class<D> dtoClass;
+
+    BaseMapper(Class<E> entityClass, Class<D> dtoClass) {
         this.mapper = new ModelMapper();
+        mapper.getConfiguration()
+                .setMatchingStrategy(MatchingStrategies.STRICT);
+        this.entityClass = entityClass;
+        this.dtoClass = dtoClass;
     }
 
-    protected abstract List<Long> getIdes();
-
-    protected abstract Class<T> getTClass();
-
-    protected abstract Class<Y> getYClass();
-
-    protected abstract List<ExpressionMap<T, Y>> getExpressionMap();
-
-    public ModelMapper map() {
-        mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-
-        for (ExpressionMap<T, Y> expression : getExpressionMap()) {
-            mapper.typeMap(getTClass(), getYClass())
-                    .addMappings(expression);
-        }
-
-        return mapper;
+    public E toEntity(D dto) {
+        return Objects.isNull(dto)
+                ? null
+                : mapper.map(dto, entityClass);
     }
+
+    public D toDto(E entity) {
+        return Objects.isNull(entity)
+                ? null
+                : mapper.map(entity, dtoClass);
+    }
+
+    Converter<E, D> toDtoConverter() {
+        return context -> {
+            E source = context.getSource();
+            D destination = context.getDestination();
+            mapSpecificFieldsEntity(source, destination);
+            return context.getDestination();
+        };
+    }
+
+    Converter<D, E> toEntityConverter() {
+        return context -> {
+            D source = context.getSource();
+            E destination = context.getDestination();
+            mapSpecificFieldsDto(source, destination);
+            return context.getDestination();
+        };
+    }
+
+
+
 
 }
