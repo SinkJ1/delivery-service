@@ -6,8 +6,21 @@
   <packaging>pom</packaging>
   <name>delivery service</name>
   <description>task for internship</description>
+
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <configuration>
+          <descriptorRefs>
+            <descriptorRef>jar-with-dependencies</descriptorRef>
+          </descriptorRefs>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
   <modules>
-  	<module>menu</module>
     <module>core</module>
     <module>dao</module>
   </modules>

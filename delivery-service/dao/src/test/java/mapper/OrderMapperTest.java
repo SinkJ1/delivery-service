@@ -20,7 +20,7 @@ public class OrderMapperTest {
     }
 
     @Test
-    public void mapToDtoEntity() {
+    public void mapToEntityTest() {
         OrderDto orderDto = orderMapper.toDto(MockData.orders.get(0));
         Order entity = orderMapper.toEntity(orderDto);
         Assert.assertEquals(MockData.orders.get(0), entity);

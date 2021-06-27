@@ -28,20 +28,29 @@ public class MockData {
     );
 
     public static List<Product> products = List.of(
-            new Product(1l, "bread", "Russia", 2020 , categories),
-            new Product(3l, "milk", "Russia", 2020 , categories),
-            new Product(4l, "water", "Russia", 2020 , categories),
-            new Product(5l, "ice", "Russia", 2020 , categories)
+            new Product(1l, "product", "Russia", 2020, categories),
+            new Product(2L, "product", "Russia", 2021, categories2)
     );
 
     public static List<ProductsByShop> productsByShops = List.of(
-            new ProductsByShop(1l, products.get(0), 5, 250),
-            new ProductsByShop(2l, products.get(1), 5, 300),
-            new ProductsByShop(3l, products.get(2), 5, 415),
-            new ProductsByShop(4l, products.get(3), 5, 10)
+            new ProductsByShop(1l, products.get(0), 5, 100)
     );
 
-    public static List<Shop> shops = List.of(new Shop(1l, "shop", productsByShops));
+    public static List<Product> productsForSort = List.of(
+            new Product(1l, "bread", "Russia", 2020, categories),
+            new Product(3l, "milk", "Russia", 2020, categories),
+            new Product(4l, "water", "Russia", 2020, categories),
+            new Product(5l, "ice", "Russia", 2020, categories)
+    );
+
+    public static List<ProductsByShop> productsByShopsForSort = List.of(
+            new ProductsByShop(1l, productsForSort.get(0), 5, 250),
+            new ProductsByShop(2l, productsForSort.get(1), 5, 300),
+            new ProductsByShop(3l, productsForSort.get(2), 5, 415),
+            new ProductsByShop(4l, productsForSort.get(3), 5, 10)
+    );
+
+    public static List<Shop> shops = List.of(new Shop(1l, "shop", productsByShops),new Shop(2l, "shop2", productsByShopsForSort));
 
     public static List<Order> orders = List.of(new Order(1l, clients.get(0), products, shops.get(0)));
 

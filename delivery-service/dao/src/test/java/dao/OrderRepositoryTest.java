@@ -5,8 +5,6 @@ import mockData.MockData;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import java.util.Date;
-
 public class OrderRepositoryTest {
 
 
@@ -17,7 +15,6 @@ public class OrderRepositoryTest {
 
     @Test
     public void createOrder() {
-        order.setId(new Date().getTime());
         orderRepository.create(order);
         Order order1 = orderRepository.read(order.getId());
         Assert.assertEquals(order, order1);

@@ -50,7 +50,7 @@ public class ShopServiceTest {
     @Test
     public void sortProductsByCostTrue() {
 
-        Shop shop = MockData.shops.get(0);
+        Shop shop = MockData.shops.get(1);
 
         List<ProductsByShop> sortedList = productsByShopService.sort(shop.getProducts(), Comparator.comparing(s -> s.getCost()));
         List<ProductsByShop> sortedList1 = productsByShops;
