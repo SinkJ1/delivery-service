@@ -1,4 +1,4 @@
-# delivery-service guide how to run unit tests
+# Guide how to run unit tests
 
 The functionality of my application demonstrated with tests.
 To run tests please:
