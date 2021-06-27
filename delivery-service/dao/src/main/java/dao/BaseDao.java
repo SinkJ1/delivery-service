@@ -1,74 +1,83 @@
 package dao;
 
+import com.google.gson.Gson;
 import data_loader.FileWorker;
+import mapper.BaseMapper;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 
-public abstract class BaseDao<T, Y> implements Repository<T, Y> {
+public abstract class BaseDao<T, D, Y> implements BaseRepository<T, Y> {
 
-    FileWorker<T> fileWorker = new FileWorker<T>();
+    private FileWorker<D> fileWorker;
 
     private String path;
-    protected List<T> entities;
+    private BaseMapper<T, D> mapper;
 
-    public BaseDao(String path, List<T> entities) {
+
+    public BaseDao(String path, BaseMapper<T, D> mapper) {
         this.path = path;
-        this.entities = new ArrayList<>(entities);
+        this.mapper = mapper;
+        this.fileWorker = new FileWorker<>();
     }
 
-    protected abstract Class<T[]> getTClass();
+    protected abstract Class<D[]> getDClass();
+
     protected abstract T getById(Y id, List<T> entities);
 
-    private void write(List<T> list) throws IOException {
+    protected void write(List<D> list) {
         fileWorker.writeToFile(list, path);
     }
 
     @Override
     public void create(T entity) {
-        /*try {
-            List<T> entities = new ArrayList<>(readData(path));
-            entities.add(entity);
-            writeData(entities, path);
-
+        try (FileReader fileReader = fileWorker.readFromFile(path)) {
+            List<D> entities = new ArrayList<>(Arrays.asList(new Gson().fromJson(fileReader, getDClass())));
+            entities.add(mapper.toDto(entity));
+            write(entities);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        }*/
-        entities.add(entity);
+        }
     }
 
     @Override
     public T read(Y id) {
 
-      /*  try {
-
-            List<T> entities = readData(path);
-           /* return entities.stream().
-                    filter(e -> e.getId().equals(id)).findFirst();*/
-
-
-        /*} catch (FileNotFoundException e) {
+        List<T> entities = new ArrayList<>();
+        List<D> dtoEntities;
+        try (FileReader fileReader = fileWorker.readFromFile(path)) {
+            dtoEntities = new ArrayList<>(Arrays.asList(new Gson().fromJson(fileReader, getDClass())));
+            entities = mapListDtosToEntities(dtoEntities);
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
-            //throw new IOException(e);
             e.printStackTrace();
-        }*/
-
+        }
 
         return getById(id, entities);
     }
 
     @Override
     public List<T> readAll() {
-        //return Arrays.asList(new Gson().fromJson(fileWorker.readFromFile(path), getTClass()));
-      return entities;
+        List<T> entities = new ArrayList<>();
+        List<D> dtoEntities;
+        try {
+            dtoEntities = new ArrayList<>(Arrays.asList(new Gson().fromJson(fileWorker.readFromFile(path), getDClass())));
+            entities = mapListDtosToEntities(dtoEntities);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        return entities;
     }
 
     @Override
@@ -76,9 +85,23 @@ public abstract class BaseDao<T, Y> implements Repository<T, Y> {
 
     }
 
+    public List<D> mapListEntitiesToDtos(List<T> entities) {
+        List<D> dtoEntities = new ArrayList<>();
+        entities.stream().forEach(e -> dtoEntities.add(mapper.toDto(e)));
+        return dtoEntities;
+    }
+
+    public List<T> mapListDtosToEntities(List<D> dtos) {
+        List<T> entities = new ArrayList<>();
+        dtos.stream().forEach(d -> entities.add(mapper.toEntity(d)));
+        return entities;
+    }
+
     @Override
     public void delete(T entity) {
+        List<T> entities = readAll();
         entities.remove(entity);
+        write(mapListEntitiesToDtos(entities));
     }
 
     public List<T> filter(Predicate<T>... predicates) {

@@ -13,7 +13,7 @@ public class FileWorker<T> {
         return new FileReader(path);
     }
 
-    public void writeToFile(List<T> list,String path){
+    public void writeToFile(List<T> list, String path) {
         try (Writer writer = new FileWriter(path)) {
             Gson gson = new GsonBuilder().create();
             gson.toJson(list, writer);

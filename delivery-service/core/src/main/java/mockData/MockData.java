@@ -1,4 +1,4 @@
-package dao;
+package mockData;
 
 import entity.*;
 
@@ -28,12 +28,17 @@ public class MockData {
     );
 
     public static List<Product> products = List.of(
-            new Product(1l, "product", "Russia", 2020 , categories),
-            new Product(2l, "product", "Russia", 2021 , categories2)
+            new Product(1l, "bread", "Russia", 2020 , categories),
+            new Product(3l, "milk", "Russia", 2020 , categories),
+            new Product(4l, "water", "Russia", 2020 , categories),
+            new Product(5l, "ice", "Russia", 2020 , categories)
     );
 
     public static List<ProductsByShop> productsByShops = List.of(
-            new ProductsByShop(1l, products.get(0), 5, 100)
+            new ProductsByShop(1l, products.get(0), 5, 250),
+            new ProductsByShop(2l, products.get(1), 5, 300),
+            new ProductsByShop(3l, products.get(2), 5, 415),
+            new ProductsByShop(4l, products.get(3), 5, 10)
     );
 
     public static List<Shop> shops = List.of(new Shop(1l, "shop", productsByShops));

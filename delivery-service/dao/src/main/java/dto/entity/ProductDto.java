@@ -5,17 +5,17 @@ import java.util.Objects;
 
 public class ProductDto {
 
-    private long id;
+    private Long id;
     private String name;
     private String producingCountry;
     private int yearOfIssue;
     private List<Long> categories;
 
-    public ProductDto(){
+    public ProductDto() {
 
     }
 
-    public ProductDto(long id, String name, String producingCountry, int yearOfIssue, List<Long> categories) {
+    public ProductDto(Long id, String name, String producingCountry, int yearOfIssue, List<Long> categories) {
         this.id = id;
         this.name = name;
         this.producingCountry = producingCountry;
@@ -27,12 +27,12 @@ public class ProductDto {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ProductDto product = (ProductDto) o;
-        return id == product.id &&
-                yearOfIssue == product.yearOfIssue &&
-                name.equals(product.name) &&
-                producingCountry.equals(product.producingCountry) &&
-                categories.equals(product.categories);
+        ProductDto that = (ProductDto) o;
+        return yearOfIssue == that.yearOfIssue &&
+                id.equals(that.id) &&
+                name.equals(that.name) &&
+                producingCountry.equals(that.producingCountry) &&
+                categories.equals(that.categories);
     }
 
     public String getProducingCountry() {
@@ -56,11 +56,11 @@ public class ProductDto {
         return Objects.hash(id, name, categories);
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

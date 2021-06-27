@@ -10,7 +10,7 @@ public class CategoryMapperTest {
     @Test
     public void mapToDtoTest(){
 
-        CategoryMapper categoryMapper = new CategoryMapper(Category.class, CategoryDto.class);
+        CategoryMapper categoryMapper = new CategoryMapper();
         Category category = new Category(1l, "name");
         CategoryDto categoryDto = categoryMapper.toDto(category);
         CategoryDto categoryDto1 = new CategoryDto(1l, "name");

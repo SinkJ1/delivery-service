@@ -3,7 +3,7 @@ package dao;
 import java.util.List;
 import java.util.function.Predicate;
 
-public interface Repository<T, Y> {
+public interface BaseRepository<T, Y> {
 
     void create(T entity);
 

@@ -1,6 +1,7 @@
 package data_loader;
 
 import com.google.gson.Gson;
+import dto.entity.OrderDto;
 import entity.Category;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -21,11 +22,18 @@ public class DataLoaderTest {
         Category category = new Category(1L, "shop");
         List<Category> categories = new ArrayList<>();
         categories.add(category);
-        fileWorker.writeToFile(categories, "src/test/resources/data/category.json");
+
+        List<Long> ll = new ArrayList<>();
+        ll.add(1L);
+
+        List<OrderDto> orderDtos = List.of(
+                new OrderDto(1L, 1l, ll, 1l)
+        );
+        fileWorker.writeToFile(orderDtos, "src/test/resources/data/test.json");
 
 
-        List<Category> categories1 = Arrays.asList(new Gson().fromJson(new FileReader("src/test/resources/data/category.json"), Category[].class));
-        Assert.assertEquals(categories, categories1);
+        List<OrderDto> categories1 = Arrays.asList(new Gson().fromJson(new FileReader("src/test/resources/data/order.json"), OrderDto[].class));
+        Assert.assertEquals(orderDtos, categories1);
     }
 
 }

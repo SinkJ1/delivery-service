@@ -5,7 +5,7 @@ import java.util.Objects;
 
 public class Product {
 
-    private long id;
+    private Long id;
     private String name;
     private String producingCountry;
     private int yearOfIssue;
@@ -16,7 +16,7 @@ public class Product {
 
     }
 
-    public Product(long id, String name, String producingCountry, int yearOfIssue, List<Category> categories) {
+    public Product(Long id, String name, String producingCountry, int yearOfIssue, List<Category> categories) {
         this.id = id;
         this.name = name;
         this.producingCountry = producingCountry;
@@ -24,13 +24,14 @@ public class Product {
         this.categories = categories;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Product product = (Product) o;
-        return id == product.id &&
-                yearOfIssue == product.yearOfIssue &&
+        return yearOfIssue == product.yearOfIssue &&
+                id.equals(product.id) &&
                 name.equals(product.name) &&
                 producingCountry.equals(product.producingCountry) &&
                 categories.equals(product.categories);
@@ -57,11 +58,11 @@ public class Product {
         return Objects.hash(id, name, categories);
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

@@ -6,8 +6,8 @@ import entity.Category;
 public class CategoryMapper extends BaseMapper<Category, CategoryDto> {
 
 
-    CategoryMapper(Class<Category> entityClass, Class<CategoryDto> dtoClass) {
-        super(entityClass, dtoClass);
+    public CategoryMapper() {
+        super(Category.class, CategoryDto.class);
     }
 
     @Override

@@ -4,15 +4,15 @@ import entity.Client;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class UserRepositoryTest {
+public class ClientRepositoryTest {
 
     private final String clientPath = "src/test/resources/data/client.json";
 
-    Repository<Client, Long> clientRepository = new ClientRepositoryImpl(clientPath);
-    Client client = new Client(25L, "name", "Brest");
+    BaseRepository<Client, Long> clientRepository = new ClientRepositoryImpl(clientPath);
+    Client client = new Client(5L, "name", "Brest");
 
     @Test
-    public void createTest(){
+    public void createClient() {
         clientRepository.create(client);
         Client client1 = clientRepository.read(client.getId());
         Assert.assertEquals(client, client1);
@@ -20,22 +20,19 @@ public class UserRepositoryTest {
     }
 
     @Test
-    public void updateTest(){
-
+    public void updateClient() {
         Client client1 = clientRepository.readAll().get(0);
         client1.setName("new name");
+        clientRepository.update(client1);
         Client client2 = clientRepository.readAll().get(0);
         Assert.assertEquals(client1, client2);
     }
 
 
     @Test
-    public void deleteTest(){
+    public void deleteClient() {
         clientRepository.delete(client);
-        Assert.assertFalse(MockData.clients.contains(client));
+        Assert.assertFalse(clientRepository.readAll().contains(client));
     }
-
-
-
 
 }

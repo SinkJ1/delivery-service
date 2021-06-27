@@ -5,16 +5,20 @@ import java.util.Objects;
 
 public class Order {
 
-    private long id;
+    private Long id;
     private Client client;
     private List<Product> products;
     private Shop shop;
 
-    public Order(long id, Client client, List<Product> products, Shop shop) {
+    public Order(Long id, Client client, List<Product> products, Shop shop) {
         this.id = id;
         this.client = client;
         this.products = products;
         this.shop = shop;
+    }
+
+    public Order(){
+
     }
 
     @Override
@@ -22,7 +26,7 @@ public class Order {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Order order = (Order) o;
-        return id == order.id &&
+        return id.equals(order.id) &&
                 client.equals(order.client) &&
                 products.equals(order.products) &&
                 shop.equals(order.shop);
@@ -33,11 +37,11 @@ public class Order {
         return Objects.hash(id, client, products, shop);
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

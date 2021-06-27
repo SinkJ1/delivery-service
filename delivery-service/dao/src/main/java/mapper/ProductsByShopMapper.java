@@ -1,17 +1,18 @@
 package mapper;
 
-import dao.ProductRepository;
-import dao.ProductRepositoryImpl;
 import dto.entity.ProductsByShopDto;
+import entity.Product;
 import entity.ProductsByShop;
+
+import java.util.List;
 
 public class ProductsByShopMapper extends BaseMapper<ProductsByShop, ProductsByShopDto>{
 
-    private ProductRepository productRepository;
+    private List<Product> products;
 
-    ProductsByShopMapper() {
+    public ProductsByShopMapper(List<Product> products) {
         super(ProductsByShop.class, ProductsByShopDto.class);
-        this.productRepository = new ProductRepositoryImpl("");
+        this.products = products;
         setupMapper();
     }
 
@@ -24,11 +25,11 @@ public class ProductsByShopMapper extends BaseMapper<ProductsByShop, ProductsByS
 
     @Override
     void mapSpecificFieldsEntity(ProductsByShop entity, ProductsByShopDto dto) {
-        dto.setProduct(entity.getId());
+        dto.setProduct(entity.getProduct().getId());
     }
 
     @Override
     void mapSpecificFieldsDto(ProductsByShopDto dto, ProductsByShop entity) {
-        entity.setProduct(productRepository.read(dto.getProduct()));
+        entity.setProduct(products.stream().filter(product -> dto.getProduct().equals(product.getId())).findFirst().get());
     }
 }

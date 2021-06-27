@@ -4,8 +4,8 @@ import dto.entity.ClientDto;
 import entity.Client;
 
 public class ClientMapper extends BaseMapper<Client, ClientDto> {
-    ClientMapper(Class<Client> entityClass, Class<ClientDto> dtoClass) {
-        super(entityClass, dtoClass);
+    public ClientMapper() {
+        super(Client.class, ClientDto.class);
     }
 
     @Override

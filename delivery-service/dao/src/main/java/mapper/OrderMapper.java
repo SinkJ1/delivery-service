@@ -1,26 +1,27 @@
 package mapper;
 
 
-import dao.OrderRepository;
-import dao.OrderRepositoryImpl;
-import dao.ProductRepository;
-import dao.ProductRepositoryImpl;
 import dto.entity.OrderDto;
+import entity.Client;
 import entity.Order;
 import entity.Product;
+import entity.Shop;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class OrderMapper extends BaseMapper<Order, OrderDto>{
 
-    ProductRepository productRepository;
-    OrderRepository orderRepository;
-    IdEntityMapper<Product> productIdMapper;
+    private List<Client> clients;
+    private List<Shop> shops;
+    private List<Product> products;
 
-    OrderMapper(Class<Order> entityClass, Class<OrderDto> dtoClass) {
-        super(entityClass, dtoClass);
-        this.productRepository = new ProductRepositoryImpl("");
-        this.orderRepository = new OrderRepositoryImpl("");
+    public OrderMapper(List<Client> clients, List<Shop> shops, List<Product> products) {
+        super(Order.class, OrderDto.class);
+        this.clients = clients;
+        this.shops = shops;
+        this.products = products;
         setupMapper();
     }
 
@@ -33,11 +34,36 @@ public class OrderMapper extends BaseMapper<Order, OrderDto>{
 
     @Override
     void mapSpecificFieldsEntity(Order order, OrderDto orderDto) {
-        orderDto.setProducts(productIdMapper.getId(order.getProducts(), (Product product) -> product.getId()));
+        orderDto.setClientId(order.getClient().getId());
+        orderDto.setShopId(order.getShop().getId());
+        orderDto.setProducts(order.getProducts().stream().map(o -> o.getId()).collect(Collectors.toList()));
     }
 
     @Override
     void mapSpecificFieldsDto(OrderDto orderDto, Order order) {
-        order.setProducts(orderDto.getProducts().stream().map(e -> productIdMapper.toEntity(productRepository.readAll(), c -> c.getId() == e)).collect(Collectors.toList()));
+        for(Client client : clients){
+            if(client.getId().equals(orderDto.getClientId())){
+                order.setClient(client);
+            }
+        }
+
+        for(Shop shop : shops){
+            if(shop.getId().equals(orderDto.getShopId())){
+                order.setShop(shop);
+            }
+        }
+
+        List<Product> productList = new ArrayList<>();
+
+        for(Long productId : orderDto.getProducts()){
+            for(Product product: products){
+                if(product.getId().equals(productId)){
+                    productList.add(product);
+                }
+            }
+        }
+
+        order.setProducts(productList);
+
     }
 }

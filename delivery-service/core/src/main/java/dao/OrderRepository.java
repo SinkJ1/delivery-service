@@ -2,5 +2,5 @@ package dao;
 
 import entity.Order;
 
-public interface OrderRepository extends Repository<Order, Long>{
+public interface OrderRepository extends BaseRepository<Order, Long> {
 }

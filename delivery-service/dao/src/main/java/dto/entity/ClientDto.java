@@ -8,6 +8,10 @@ public class ClientDto {
     private String name;
     private String address;
 
+    public ClientDto() {
+
+    }
+
     public ClientDto(Long id, String name, String address) {
         this.id = id;
         this.name = name;

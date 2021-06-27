@@ -6,11 +6,12 @@ import org.modelmapper.convention.MatchingStrategies;
 
 import java.util.Objects;
 
-public abstract class BaseMapper<E, D>{
+public abstract class BaseMapper<E, D> {
 
-    ModelMapper mapper;
+    protected ModelMapper mapper;
 
     abstract void mapSpecificFieldsEntity(E source, D destination);
+
     abstract void mapSpecificFieldsDto(D source, E destination);
 
     private Class<E> entityClass;
@@ -53,8 +54,6 @@ public abstract class BaseMapper<E, D>{
             return context.getDestination();
         };
     }
-
-
 
 
 }

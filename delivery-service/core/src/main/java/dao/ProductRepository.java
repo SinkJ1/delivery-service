@@ -2,7 +2,7 @@ package dao;
 
 import entity.Product;
 
-public interface ProductRepository extends Repository <Product, Long>{
+public interface ProductRepository extends BaseRepository<Product, Long> {
 
 
 }

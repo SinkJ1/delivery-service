@@ -5,17 +5,17 @@ import java.util.Objects;
 
 public class ShopDto {
 
-    private long id;
+    private Long id;
     private String name;
     private List<Long> products;
 
-    public ShopDto(long id, String name, List<Long> products) {
+    public ShopDto(Long id, String name, List<Long> products) {
         this.id = id;
         this.name = name;
         this.products = products;
     }
 
-    public ShopDto(){
+    public ShopDto() {
 
     }
 
@@ -24,7 +24,7 @@ public class ShopDto {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ShopDto shopDto = (ShopDto) o;
-        return id == shopDto.id &&
+        return id.equals(shopDto.id) &&
                 name.equals(shopDto.name) &&
                 products.equals(shopDto.products);
     }
@@ -34,11 +34,11 @@ public class ShopDto {
         return Objects.hash(id, name, products);
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

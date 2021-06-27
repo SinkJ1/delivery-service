@@ -4,14 +4,14 @@ import java.util.Objects;
 
 public class CategoryDto {
 
-    private long id;
+    private Long id;
     private String name;
 
-    public CategoryDto(){
+    public CategoryDto() {
 
     }
 
-    public CategoryDto(long id, String name) {
+    public CategoryDto(Long id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -20,9 +20,9 @@ public class CategoryDto {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        CategoryDto categoryDto = (CategoryDto) o;
-        return id == categoryDto.id &&
-                name.equals(categoryDto.name);
+        CategoryDto that = (CategoryDto) o;
+        return id.equals(that.id) &&
+                name.equals(that.name);
     }
 
     @Override
@@ -30,11 +30,11 @@ public class CategoryDto {
         return Objects.hash(id, name);
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

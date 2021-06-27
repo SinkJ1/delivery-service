@@ -5,48 +5,61 @@ import java.util.Objects;
 
 public class OrderDto {
 
-    private long id;
-    private ClientDto clientDto;
+    private Long id;
+    private Long clientId;
     private List<Long> products;
-    private ShopDto shopDto;
+    private Long shopId;
 
-    public OrderDto(long id, ClientDto clientDto, List<Long> products, ShopDto shopDto) {
+    public OrderDto(Long id, Long clientId, List<Long> products, Long shopId) {
         this.id = id;
-        this.clientDto = clientDto;
+        this.clientId = clientId;
         this.products = products;
-        this.shopDto = shopDto;
+        this.shopId = shopId;
     }
+
+    public OrderDto() {
+
+    }
+
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        OrderDto order = (OrderDto) o;
-        return id == order.id &&
-                clientDto.equals(order.clientDto) &&
-                products.equals(order.products) &&
-                shopDto.equals(order.shopDto);
+        OrderDto orderDto = (OrderDto) o;
+        return id.equals(orderDto.id) &&
+                clientId.equals(orderDto.clientId) &&
+                products.equals(orderDto.products) &&
+                shopId.equals(orderDto.shopId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, clientDto, products, shopDto);
+        return Objects.hash(id, clientId, products, shopId);
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public ClientDto getClient() {
-        return clientDto;
+    public Long getClientId() {
+        return clientId;
     }
 
-    public void setClient(ClientDto clientDto) {
-        this.clientDto = clientDto;
+    public void setClientId(Long clientId) {
+        this.clientId = clientId;
+    }
+
+    public Long getShopId() {
+        return shopId;
+    }
+
+    public void setShopId(Long shopId) {
+        this.shopId = shopId;
     }
 
     public List<Long> getProducts() {
@@ -57,21 +70,13 @@ public class OrderDto {
         this.products = products;
     }
 
-    public ShopDto getShop() {
-        return shopDto;
-    }
-
-    public void setShop(ShopDto shopDto) {
-        this.shopDto = shopDto;
-    }
-
     @Override
     public String toString() {
-        return "Order{" +
+        return "OrderDto{" +
                 "id=" + id +
-                ", client=" + clientDto +
+                ", clientId=" + clientId +
                 ", products=" + products +
-                ", shop=" + shopDto +
+                ", shopId=" + shopId +
                 '}';
     }
 }

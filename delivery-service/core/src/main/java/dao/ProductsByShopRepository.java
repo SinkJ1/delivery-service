@@ -2,5 +2,5 @@ package dao;
 
 import entity.ProductsByShop;
 
-public interface ProductsByShopRepository extends Repository<ProductsByShop, Long>{
+public interface ProductsByShopRepository extends BaseRepository<ProductsByShop, Long> {
 }

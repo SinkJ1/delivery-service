@@ -4,19 +4,19 @@ import java.util.Objects;
 
 public class ProductsByShopDto {
 
-    private long id;
+    private Long id;
     private Long product;
     private int count;
     private float cost;
 
-    public ProductsByShopDto(long id, Long product, int count, float cost) {
+    public ProductsByShopDto(Long id, Long product, int count, float cost) {
         this.id = id;
         this.product = product;
         this.count = count;
         this.cost = cost;
     }
 
-    public ProductsByShopDto(){
+    public ProductsByShopDto() {
 
     }
 
@@ -26,9 +26,9 @@ public class ProductsByShopDto {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ProductsByShopDto that = (ProductsByShopDto) o;
-        return id == that.id &&
-                count == that.count &&
+        return count == that.count &&
                 Float.compare(that.cost, cost) == 0 &&
+                id.equals(that.id) &&
                 product.equals(that.product);
     }
 
@@ -37,11 +37,11 @@ public class ProductsByShopDto {
         return Objects.hash(id, product, count, cost);
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
